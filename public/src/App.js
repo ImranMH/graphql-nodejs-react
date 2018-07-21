@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 // import axios from "axios";
+import Layout from './components/Layout';
+import Nav from './components/Navbar';
+import Footer from './components/Footer';
+import ToggleRender from './components/ToggleRenderProps';
 
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
+
 import gql from "graphql-tag";
 import {
   graphql,
@@ -12,10 +15,7 @@ import ChannelList from './components/ChannelList'
 
 // const cache = new InMemoryCache();
 // const link = new HttpLink();
-const client = new ApolloClient({
-  // uri: "https://w5xlvm3vzz.lp.gql.zone/graphql"
-  // uri: "/graphiql"
-});
+
 
 // const channelsListQuery = gql`
 //    query ChannelsListQuery {
@@ -28,30 +28,30 @@ const client = new ApolloClient({
 // const ChannelsListWithData = graphql(channelsListQuery)(ChannelList);
 
 
-client
-  .query({
-    query: gql`
-      {
-        channels{
-          name
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
+// client
+//   .query({
+//     query: gql`
+//       {
+//         channels{
+//           name
+//         }
+//       }
+//     `
+//   })
+//   .then(result => console.log(result));
 class App extends Component {
   
   render() {
 
     return (
-      <ApolloProvider client={client}>
+
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to graphql</h1>
-        </header>
-        <ChannelList />
+        <Nav />
+        <Layout />
+         
+        <Footer />
       </div>
-       </ApolloProvider>
+       
     );
   }
 }

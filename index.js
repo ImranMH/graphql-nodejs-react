@@ -5,6 +5,8 @@ var {
   graphqlExpress,
   graphiqlExpress
 } = require('apollo-server-express');
+const mongoose = require('mongoose');
+require('./app/database')(mongoose)
 const api = require('./app/api')()
 
 const schema = require('./schema')
@@ -21,7 +23,7 @@ app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
 }))
 app.get('/api',(req, res)=>{
-  api.getUsers().then(resdata=>{
+  api.getChannel().then(resdata=>{
     console.log(resdata)
      res.json(resdata.data)
   })

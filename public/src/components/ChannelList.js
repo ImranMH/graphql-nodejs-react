@@ -15,31 +15,37 @@ const channells = gql`
   channels{
     name
     id
+    year
   }
 }
 `
 const ADD_CHNL = gql `
-  mutation addChanl($id: String!, $name:String!) {
-    addChannel(id:$id, name:$name){
+  mutation addChanl($id: Int!, $name:String!, $year:Int) {
+    addChannel(id:$id, name:$name, year:$year){
       id
       name
+      year
     }
   }
 `
 const AddChannel = ()=>{
   let id
   let name
+  let year
   return (
     <Mutation mutation={ADD_CHNL}> 
       {(addChannel,{data})=>(
         <div>
           <form onSubmit={e=>{
             e.preventDefault()
-            addChannel({variables:{id:id.value, name:name.value}})
+            addChannel({ variables: { id: id.value, name: name.value, year: year.value}})
             id.value = ""
+            name.value = ""
+            year.value = ""
           }}>
-            <input ref ={ node=>{ id = node} }/>
-            <input ref ={ node=>{ name = node} }/>
+            <input placeholder="id" ref ={ node=>{ id = node} }/>
+            <input placeholder="name"  ref ={ node=>{ name = node} }/>
+            <input placeholder="year"  ref ={ node=>{ year = node} }/>
             <button>Add Channel</button>
           </form>
 
@@ -63,7 +69,7 @@ const ChannelList = () => (
       }
 
       return data.channels.map((item,index)=>{
-        return <p key={index}>{item.id}  ---<span>{item.name}</span></p>
+        return <p key={index}>{item.id}  ---<span>{item.name}</span> ---<span>{item.year}</span></p>
       })
   } }
   </Query> 
@@ -95,6 +101,7 @@ const UserList = () => (
     <div>
       <ChannelList />
       <AddChannel />
+      
       <UserList />
     </div>
   );
