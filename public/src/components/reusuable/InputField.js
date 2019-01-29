@@ -9,7 +9,7 @@ const InputField = (props) => {
   return (
     <Fragment>
       <label htmlFor={name}>{name} <span className="text-muted">(Optional)</span></label>
-      <input type={type} value={value} onChange={onChange} className="form-control" id={name} placeholder={placeholder} />
+      <input type={type} value={value} onChange={onChange} className="form-control" name={name} id={name} placeholder={placeholder} />
       <div className="invalid-feedback">
         {feedback}
       </div>

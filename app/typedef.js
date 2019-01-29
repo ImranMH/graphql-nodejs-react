@@ -28,8 +28,19 @@ const typeDefs = [`
     city:String,
     zipcode: String
   }
+  type Movie {
+    title:String,
+    genre: String,
+    country: String,
+    year: Int,
+    director: String,
+    production: String,
+  }
   type Mutation {
     addChannel(id: Int, name: String, year: Int): Channellist
+    AddMovie(id: Int, name: String, year: Int): Movie
+    
   }
+  
 `]
 module.exports = typeDefs;

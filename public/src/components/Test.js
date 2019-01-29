@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import DeleteBtn from './reusuable/DeleteBtn'
 const styled = {
   dark:{
     background: '#00f',
@@ -10,6 +10,7 @@ const styled = {
     color: "#0ff"
   }
 }
+const dialog = ['delete', 'are You sure?', 'Ok one last time??']
 const ThemeContext = React.createContext(styled.dark);
 const Tool = (props) => {
   return (
@@ -40,6 +41,7 @@ const Button = (props) => {
       <button style={{ background: props.theme.background, color: props.theme.color}} className="btn">
             fancy Button  
       </button>
+
     </div>
   )
 }
@@ -52,12 +54,16 @@ const Button = (props) => {
 
 
 export default class Test extends Component {
+  action = ()=>{
+    console.log('action is executed rom here');
+  }
   render() {
     return (
       <div>
         <ThemeContext.Provider value={styled.light}>
           <Tool />
         </ThemeContext.Provider>
+        <DeleteBtn action={this.action} dialog={dialog} />
       </div>
     )
   }

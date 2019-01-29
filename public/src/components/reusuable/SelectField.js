@@ -4,24 +4,24 @@ import PropTypes from 'prop-types'
 
 const SelectField = (props) => {
   const {
-    name, defValue, onChange, feedback, value
+    name, defValue, onChange, feedback, value, optVal
   } = props
-  const options = (optVal) => {
-    if (optVal) {
-      return optVal.map((opt, index) => {
+  const options = (Val) => {
+    if (Val) {
+      return Val.map((opt, index) => {
         return <option key={index} value={opt} >{opt} </option>
       })
     }
   }
   return (
     <Fragment>
-      <label htmlFor={props.name}>{props.name}</label>
-      <select value={props.value} onChange={props.onChange} className="custom-select d-block w-100" id={props.name} required >
-        <option value="">{props.defValue}</option>
-        {options(props.optVal)}
+      <label htmlFor={name}>{name}</label>
+      <select value={value} onChange={onChange} name={name} className="custom-select d-block w-100" id={name} required >
+        <option value="">{defValue}</option>
+        {options(optVal)}
       </select>
       <div className="invalid-feedback">
-        {props.feedback}
+        {feedback}
       </div>
     </Fragment>
   )
@@ -32,7 +32,7 @@ SelectField.propTypes = {
   onChange: PropTypes.func,
   feedback: PropTypes.string,
   defValue: PropTypes.string,
-  feedback: PropTypes.string,
+  value: PropTypes.string,
 }
 SelectField.defaultProps = {
   feedback: 'This Field is required',

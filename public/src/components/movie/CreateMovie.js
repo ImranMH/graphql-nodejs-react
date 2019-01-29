@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
+import gql from "graphql-tag";
 import InputField from './../reusuable/InputField'
 import SelectField from './../reusuable/SelectField'
 import Form from './../reusuable/Form'
+
+const ADD_MOVIE = gql`
+  mutation addMovie($title: String!, $year:Int, $genre: String! ) {
+    addMovie(type: $type) {
+      id
+      type
+    }
+  }
+`
 export default class CreateMovie extends Component {
   state ={
-    newMovie:{
-      name:'',
+      name: '',
       year: null,
       rating: null,
       country: '',
-    }
   }
   submit = (e)=>{
     e.preventDefault()
@@ -19,9 +27,10 @@ export default class CreateMovie extends Component {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    this.setState({ newMovie:{
+    console.log(target)
+    this.setState({
       [name]: value
-    } });
+     });
   }
   render() {
     const data = [1,2,3,4,5,6,7,8,9,10]
@@ -32,10 +41,13 @@ export default class CreateMovie extends Component {
               <h4 className="mb-3">Movie Detail</h4>
               <Form onSubmit={this.submit}>
                 <div className="mb-3">
-                <InputField name="Addres" onChange={this.handleChange} value={this.state.newMovie.name} placeholder="Movie name" />
+                <InputField name="country" onChange={this.handleChange} value={this.state.country} placeholder="Movie name" />
                 </div>
                 <div className=" mb-3">
-                <InputField name="year" onChange={this.handleChange} value={this.state.newMovie.year} placeholder="2003" />
+                <InputField name="year" onChange={this.handleChange} value={this.state.year} placeholder="2003" />
+                </div>
+                <div className=" mb-3">
+                <SelectField name="rating" optVal={data} onChange={this.handleChange} value={this.state.rating} placeholder="2003" />
                 </div>
                 <div className="col-md-3 mb-3">
                   <input type="submit" value="send" />
